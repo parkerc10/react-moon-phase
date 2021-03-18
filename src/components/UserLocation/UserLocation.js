@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import './UserLocation.css';
-import { latitude, longitude } from '../../functions/getPosition.js';
 
-const UserLocation = () => {
+const UserLocation = props => {
   const [locationContainer, setLocationContainer] = useState('hidden');
   const [locationText, setLocationText] = useState('');
   const [locationTimezone, setLocationTimezone] = useState('');
@@ -11,6 +10,10 @@ const UserLocation = () => {
 
   const displayPosition = async function () {
     try {
+      const pos = await props.getPosition();
+      let latitude = pos.coords.latitude;
+      let longitude = pos.coords.longitude;
+
       //Reverse geocoding API
       const responseGeo = await fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`);
       if (!responseGeo.ok)
@@ -25,6 +28,7 @@ const UserLocation = () => {
       setLocationTimezone(`${city[0].toUpperCase() + city.substring(1)}, ${dataGeo.statename}`);
     } catch (err) {
       console.error(err);
+      window.location.reload();
     }
   };
 

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { latitude, longitude } from '../../functions/getPosition.js';
 import './MoonStatus.css';
 import MoonIcon from './MoonIcon/MoonIcon';
 
 let moonPhase;
-const MoonStatus = () => {
+const MoonStatus = props => {
   const [moonDescription, setMoonDescription] = useState('hidden');
   const [moonText, setMoonText] = useState('');
   const [moonIllumination, setMoonIllumination] = useState('');
@@ -14,6 +13,10 @@ const MoonStatus = () => {
   //Retrieve moon data and render it
   const getMoonPhase = async function () {
     try {
+      const pos = await props.getPosition();
+      let latitude = pos.coords.latitude;
+      let longitude = pos.coords.longitude;
+
       //Weather API--Astronomy
       const responseMoon = await fetch(
         `https://api.weatherapi.com/v1/astronomy.json?key=61e062c61e5149e1a5b01136212302&q=${latitude},${longitude}`

@@ -2,10 +2,18 @@ import MoonStatus from './MoonStatus/MoonStatus';
 import UserLocation from './UserLocation/UserLocation';
 
 function App() {
+  const getPosition = function () {
+    return new Promise(function (resolve, reject) {
+      navigator.geolocation.getCurrentPosition(resolve, err => {
+        alert(`${err.message}: Please enable location services for your browser`);
+      });
+    });
+  };
+
   return (
     <div className="App">
-      <MoonStatus />
-      <UserLocation />
+      <MoonStatus getPosition={getPosition} />
+      <UserLocation getPosition={getPosition} />
       <footer>
         <div>
           Icons made by{' '}
