@@ -6,6 +6,7 @@ import Last_Quarter from './img/Last_Quarter.png';
 import Waning_Crescent from './img/Waning_Crescent.png';
 import New_Moon from './img/New_Moon.png';
 import Waning_Gibbous from './img/Waning_Gibbous.png';
+import Waxing_Gibbous from './img/Waxing_Gibbous.png';
 import './MoonIcon.css';
 
 const MoonIcon = props => {
@@ -35,6 +36,9 @@ const MoonIcon = props => {
         break;
       case 'Waning Gibbous':
         setIconName(Waning_Gibbous);
+        break;
+      case 'Waxing Gibbous':
+        setIconName(Waxing_Gibbous);
         break;
       default:
         break;
